@@ -3,9 +3,9 @@ use Mix.Config
 # Configure your database
 config :lixi, Lixi.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "lixi_dev",
-  hostname: "localhost",
+  hostname: "docker",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
