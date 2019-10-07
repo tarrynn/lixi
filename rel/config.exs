@@ -48,7 +48,6 @@ end
 
 release :lixi do
   set version: current_version(:lixi)
-  #set output_dir: "_build/#{Mix.env()}/rel/#{:lixi}/#{current_version(:lixi)}"
   set applications: [
     :runtime_tools
   ]
