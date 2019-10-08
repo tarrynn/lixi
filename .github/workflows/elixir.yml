@@ -6,12 +6,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [8]
 
     container:
-      image: elixir:1.9.1-slim
+      image: tarrynn/elixir_docker:latest
 
     steps:
     - uses: actions/checkout@v1
