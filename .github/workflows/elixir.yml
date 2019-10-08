@@ -6,9 +6,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [8]
 
     container:
       image: elixir:1.9.1-slim
+      image: postgres:9.6.15
 
     steps:
     - uses: actions/checkout@v1
@@ -17,5 +21,7 @@ jobs:
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+        cd ./assets && npm install
+        npm run deploy --prefix ./assets
     - name: Run Tests
       run: mix test
