@@ -12,7 +12,6 @@ jobs:
 
     container:
       image: elixir:1.9.1-slim
-      image: postgres:9.6.15
 
     steps:
     - uses: actions/checkout@v1
