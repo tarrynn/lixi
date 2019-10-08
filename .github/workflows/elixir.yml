@@ -14,8 +14,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Dependencies
       run: |
-        /usr/lib/postgresql/9.6/bin/pg_ctl -D /var/lib/postgresql/9.6/main -l logfile start
-        sudo echo "127.0.0.1 docker" >> /etc/hosts
+        sudo -i -u ubuntu bash -c "/usr/lib/postgresql/9.6/bin/pg_ctl -D /var/lib/postgresql/9.6/main -l logfile start"
+        echo "127.0.0.1 docker" >> /etc/hosts
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
