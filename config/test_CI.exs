@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :lixi, Lixi.Repo,
   username: "postgres",
-  password: "",
+  password: "postgres",
   database: "lixi_test",
   hostname: "docker",
   pool: Ecto.Adapters.SQL.Sandbox
