@@ -12,11 +12,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Start Postgresql
+      run: |
+        echo "127.0.0.1 docker" >> /etc/hosts
+        service postgresql start
+        pg_isready --host=docker --port=5432 --username=postgres
     - name: Install Dependencies
       run: |
-        sudo -i -u ubuntu bash -c "/usr/lib/postgresql/9.6/bin/pg_ctl -o \"-p 5432\" -D /var/lib/postgresql/9.6/main -l logfile start"
-        echo "127.0.0.1 docker" >> /etc/hosts
-        /usr/lib/postgresql/9.6/bin/pg_isready --host=docker --port=5432 --username=postgres
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
