@@ -17,6 +17,7 @@ jobs:
         echo "127.0.0.1 docker" >> /etc/hosts
         service postgresql start
         pg_isready --host=docker --port=5432 --username=postgres
+        sudo -u postgres psql postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';";
     - name: Install Dependencies
       run: |
         mix local.rebar --force
