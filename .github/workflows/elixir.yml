@@ -18,6 +18,7 @@ jobs:
         service postgresql start
         pg_isready --host=docker --port=5432 --username=postgres
         sudo -u postgres psql postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';";
+        mv -f config/test_CI.exs config/test.exs
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -27,6 +28,8 @@ jobs:
         cd ..
         npm run deploy --prefix ./assets
     - name: Setup database
-      run: MIX_ENV=test mix ecto.setup
+      run: |
+        MIX_ENV=test mix ecto.setup
     - name: Run Tests
-      run: mix test
+      run: |
+        mix test
