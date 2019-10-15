@@ -47,7 +47,7 @@ jobs:
         mix test test/lixi_web/controllers/
   deploy:
     needs: [test_views, test_controllers]
-    if: github.ref == "master"
+    if: github.ref == 'master'
     runs-on: ubuntu-latest
     container:
       image: tarrynn/elixir_docker:latest
