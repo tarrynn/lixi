@@ -59,6 +59,7 @@ jobs:
         mix test test/lixi_web/views/
   deploy:
     needs: [test_views, test_controllers]
+    if: github.ref == 'refs/heads/more_actions'
     runs-on: ubuntu-latest
     container:
       image: tarrynn/elixir_docker:latest
@@ -66,4 +67,3 @@ jobs:
     - name: Deploy
       run: |
         echo "Deploying ${{ github.ref }}"
-        mix release.version
