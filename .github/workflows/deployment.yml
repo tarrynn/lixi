@@ -2,8 +2,7 @@ name: Deploy to servers flow
 on:
   check_suite:
     types: [completed]
-    branches:
-      - more_actions
+    
 jobs:
   build:
 
