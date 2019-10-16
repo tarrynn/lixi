@@ -55,10 +55,9 @@ jobs:
     - name: Setup db creds for CI
       run: |
         mv -f config/test_CI.exs config/test.exs
-    - name: Download dev database
-        uses: actions/download-artifact@v1
-        with:
-          name: postgresql-dev
+    - uses: actions/download-artifact@v1
+      with:
+        name: postgresql-dev
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -89,8 +88,7 @@ jobs:
     - name: Setup db creds for CI
       run: |
         mv -f config/test_CI.exs config/test.exs
-    - name: Download dev database
-        uses: actions/download-artifact@v1
+    - uses: actions/download-artifact@v1
         with:
           name: postgresql-dev
     - name: Install Dependencies
