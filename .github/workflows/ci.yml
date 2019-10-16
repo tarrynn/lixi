@@ -15,7 +15,7 @@ jobs:
         env:
             POSTGRES_PASSWORD:
         volumes:
-          - ./postgresql:/var/lib/postgresql/data
+          - /home/runner/work/lixi/lixi/postgresql:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
     - name: Setup db creds for CI
