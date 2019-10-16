@@ -34,6 +34,6 @@ jobs:
       run: |
         mix test
     - name: Deploy if on special branch
-      if: github.branch == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       run: |
         echo "Deploying ${{ github.ref }}"
