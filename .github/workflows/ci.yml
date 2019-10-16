@@ -89,8 +89,8 @@ jobs:
       run: |
         mv -f config/test_CI.exs config/test.exs
     - uses: actions/download-artifact@v1
-        with:
-          name: postgresql-dev
+      with:
+        name: postgresql-dev
     - name: Install Dependencies
       run: |
         mix local.rebar --force
