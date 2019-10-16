@@ -32,6 +32,11 @@ jobs:
     - name: Setup database
       run: |
         MIX_ENV=test mix ecto.setup
+    - name: Upload database
+        uses: actions/upload-artifact@v1
+        with:
+          name: postgresql-dev
+          path: postgresql
   test_controllers:
     needs: build
     runs-on: ubuntu-latest
@@ -48,6 +53,13 @@ jobs:
           - ./postgresql/data:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
+    - name: Setup db creds for CI
+      run: |
+        mv -f config/test_CI.exs config/test.exs
+    - name: Download dev database
+        uses: actions/download-artifact@v1
+        with:
+          name: postgresql-dev
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -75,6 +87,13 @@ jobs:
           - ./postgresql/data:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
+    - name: Setup db creds for CI
+      run: |
+        mv -f config/test_CI.exs config/test.exs
+    - name: Download dev database
+        uses: actions/download-artifact@v1
+        with:
+          name: postgresql-dev
     - name: Install Dependencies
       run: |
         mix local.rebar --force
