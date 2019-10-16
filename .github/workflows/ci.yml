@@ -32,11 +32,10 @@ jobs:
     - name: Setup database
       run: |
         MIX_ENV=test mix ecto.setup
-    - name: Upload database
-        uses: actions/upload-artifact@v1
-        with:
-          name: postgresql-dev
-          path: postgresql
+    - uses: actions/upload-artifact@v1
+      with:
+        name: postgresql-dev
+        path: postgresql
   test_controllers:
     needs: build
     runs-on: ubuntu-latest
