@@ -15,7 +15,7 @@ jobs:
         env:
             POSTGRES_PASSWORD:
         volumes:
-          - ./postgresql/data:/var/lib/postgresql/data
+          - ./postgresql:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
     - name: Setup db creds for CI
@@ -49,7 +49,7 @@ jobs:
         env:
             POSTGRES_PASSWORD:
         volumes:
-          - ./postgresql/data:/var/lib/postgresql/data
+          - ./postgresql:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
     - name: Setup db creds for CI
@@ -69,41 +69,8 @@ jobs:
     - name: Run Tests for controllers
       run: |
         mix test test/lixi_web/controllers/
-  test_views:
-    needs: build
-    runs-on: ubuntu-latest
-    container:
-      image: tarrynn/elixir_docker:latest
-    services:
-      postgres:
-        image: postgres:9.6.15
-        ports:
-          - 5432:5432
-        env:
-            POSTGRES_PASSWORD:
-        volumes:
-          - ./postgresql/data:/var/lib/postgresql/data
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup db creds for CI
-      run: |
-        mv -f config/test_CI.exs config/test.exs
-    - uses: actions/download-artifact@v1
-      with:
-        name: postgresql-dev
-    - name: Install Dependencies
-      run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-        cd ./assets && npm install
-        cd ..
-        npm run deploy --prefix ./assets
-    - name: Run Tests for views
-      run: |
-        mix test test/lixi_web/views/
   deploy:
-    needs: [test_views, test_controllers]
+    needs: test_controllers
     runs-on: ubuntu-latest
     container:
       image: tarrynn/elixir_docker:latest
