@@ -14,8 +14,6 @@ jobs:
           - 5432:5432
         env:
             POSTGRES_PASSWORD:
-        volumes:
-          - /home/runner/work/lixi/lixi/postgresql:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
     - name: Setup db creds for CI
@@ -34,8 +32,8 @@ jobs:
         MIX_ENV=test mix ecto.setup
     - uses: actions/upload-artifact@v1
       with:
-        name: postgresql-dev
-        path: postgresql
+        name: mix-deps-dev
+        path: /github/home/.mix
   test_controllers:
     needs: build
     runs-on: ubuntu-latest
@@ -48,8 +46,6 @@ jobs:
           - 5432:5432
         env:
             POSTGRES_PASSWORD:
-        volumes:
-          - ./postgresql:/var/lib/postgresql/data
     steps:
     - uses: actions/checkout@v1
     - name: Setup db creds for CI
@@ -57,7 +53,7 @@ jobs:
         mv -f config/test_CI.exs config/test.exs
     - uses: actions/download-artifact@v1
       with:
-        name: postgresql-dev
+        name: mix-deps-dev
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -68,7 +64,7 @@ jobs:
         npm run deploy --prefix ./assets
     - name: Run Tests for controllers
       run: |
-        mix test test/lixi_web/controllers/
+        mix test
   deploy:
     needs: test_controllers
     runs-on: ubuntu-latest
